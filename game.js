@@ -1,5 +1,3 @@
-console.log("a");
-
 // Get random int from 0 to max 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -106,7 +104,7 @@ function game() {
             selection = prompt(`Move ${selection} is illegal. Please type rock, paper or scissors to make a move`)
         }
         result = playRound(selection, computerTurn());
-        console.log(result);
+        alert(result);
         switch (getRoundResult(result)) {
             case -1:
                 computerScore++;
