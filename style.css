@@ -66,7 +66,19 @@ h2 {
     font-size: 6vh;
     padding:2px;
     text-align: center;
+    background: rgb(7,13,36);
+    background: linear-gradient(159deg, rgba(7,13,36,1) 0%, rgba(33,165,207,1) 48%, rgba(3,12,29,1) 100%);
+    border:2px solid blue;
+    border-radius:2vh;
+    box-shadow: 4px 2px 2px gray;
 }
+
+.button:hover {
+    border: 2px solid red;
+    cursor: pointer;
+    box-shadow: 10px 5px 5px rgba(255, 0, 0, 0.678);
+}
+
 
 .content-container {
     position:relative;

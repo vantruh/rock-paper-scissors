@@ -173,10 +173,6 @@ function gameReset() {
     healthBars[1].textContent = "❤❤❤❤❤";
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function toggleButtons () {
     rockButton.disabled = !rockButton.disabled;
     paperButton.disabled = !paperButton.disabled;
