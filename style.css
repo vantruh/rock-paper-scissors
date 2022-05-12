@@ -3,6 +3,12 @@ body {
     padding:0;
 }
 
+.body {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
 .head-content {
     display:flex;
     flex-direction: column;
@@ -87,11 +93,12 @@ h2 {
 .choice-container {
     padding-top:10vh;
     display:flex;
-    padding:5vh;
+    padding:8vh;
     justify-content: center;
     gap: 5vw;
     align-items: center;
-    background-color: aliceblue;
+    background-color: rgba(240, 248, 255, 0.103);
+    padding-bottom:8vh;
 }
 
 .choice {
@@ -113,4 +120,19 @@ h2 {
     font-weight: bolder;
     text-align: center;
     text-shadow:black -0.2vw 0px;
+}
+
+.footer {
+    background-color: rgba(235, 235, 235, 0.5);
+    height:10vh;
+    border-top:1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.footer a {
+    text-decoration-color: black;
+    color:blue;
 }
