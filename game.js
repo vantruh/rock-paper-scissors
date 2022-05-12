@@ -1,128 +1,184 @@
-// Get random int from 0 to max 
+const rockButton = document.querySelector('#rock');
+const paperButton = document.querySelector('#paper');
+const scissorsButton = document.querySelector('#scissors');
+const battleLog = document.querySelector('#log');
+
+let roundCounter = 0;
+let gameOverState = 0;
+
+rockButton.addEventListener('click', () => {
+    if (gameOverState > 0) {
+        gameReset();
+    } else {
+        let compChoice = computerTurn();
+        let result = compare('rock', compChoice);
+        postRoundResults('ROCK', compChoice, result);
+    }
+});
+
+paperButton.addEventListener('click', () => {
+    if (gameOverState > 0) {
+        gameReset();
+    } else {
+        let compChoice = computerTurn();
+        let result = compare('paper', compChoice);
+        postRoundResults('PAPER', compChoice, result);
+    }
+});
+
+scissorsButton.addEventListener('click', () => {
+    if (gameOverState > 0) {
+        gameReset();
+    } else {
+        let compChoice = computerTurn();
+        let result = compare('scissors', compChoice);
+        postRoundResults('SCISSORS', compChoice, result);
+    }
+});
+
+function compare(player, computer) {
+    if (player == 'rock') {
+        switch(computer) {
+            case 'rock':
+                return tie();
+            case 'paper':
+                return loss();
+            case 'scissors':
+                return victory();
+        }
+    } else if (player == 'paper') {
+        switch(computer) {
+            case 'rock':
+                return victory();
+            case 'paper':
+                return "tie"
+            case 'scissors':
+                return loss();
+        }
+    } else {
+        switch(computer) {
+            case 'rock':
+                return loss();
+            case 'paper':
+                return victory();
+            case 'scissors':
+                return "tie"
+        }
+    }
+}
+
+function addToLog(text) {
+    if (battleLog.textContent === "The battle is not started yet..." || battleLog.textContent === "The new battle awaits...") {
+        battleLog.textContent = ''
+    }
+    battleLog.textContent += text + "\n";
+    logScrollDown();
+}
+
+function logScrollDown() {
+    battleLog.scrollTop = battleLog.scrollHeight;
+}
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-// Randomly return "Rock", "Paper" or "Scissors"
-computerTurn = () => {
-    switch (getRandomInt(3)) {
+let computerTurn = () => {
+    switch(getRandomInt(3)) {
         case 0:
-            return "Rock";
+            return 'rock';
         case 1:
-            return "Paper";
+            return 'paper';
         case 2:
-            return "Scissors";
-        default:
-            return "Something Went Wrong";
+            return 'scissors';
     }
 }
 
-// Check if player's move is legal
-function checkMove (playerSelection) {
-    playerSelection = playerSelection.toLowerCase();
-    if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
+// Replace character in string at index
+function setCharAt(str,index,chr) {
+    if(index > str.length-1) return str;
+    return str.substring(0,index) + chr + str.substring(index+1);
+}
+
+// 3 functions for state of the game
+function victory() {
+    decreaseHealth('computer');
+    roundCounter++;
+    return "victory"
+    
+}
+
+function loss() {
+    decreaseHealth('player');
+    roundCounter++;
+    return "loss"
+}
+
+function tie() {
+    roundCounter++;
+    return "tie"
+}
+
+function checkHealth(player) {
+    let health = document.querySelector(`.${player} .health`);
+    if (health.textContent.lastIndexOf("❤") != -1) {
+        return true
+    } else {
         return false
     }
-    return true
 }
 
-// Convert string result to kind of number result for easier fetching
-function getRoundResult (result) {
-    if (result.indexOf("lost") != -1) {
-        return -1;
-    } else if (result.indexOf("won") != -1) {
-        return 1;
-    } else {
-        return 0
-    }
-}
-
-// Get results of 1 round of rock-paper-scissors game
-function playRound (playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
-    computerSelection = computerSelection.toLowerCase();
-    let result;
-    switch (playerSelection) {
-        case "rock":
-            switch (computerSelection) {
-                case "rock":
-                    result = "Tie";
-                    break;
-                case "paper":
-                    result = "Lose";
-                    break;
-                case "scissors":
-                    result = "Win";
-                    break;
-            }
-            break;
-        case "paper":
-            switch (computerSelection) {
-                case "rock":
-                    result = "Win";
-                    break;
-                case "paper":
-                    result = "Tie";
-                    break;
-                case "scissors":
-                    result = "Lose"
-                    break;
-            }
-            break;
-        case "scissors":
-            switch (computerSelection) {
-                case "rock":
-                    result = "Lose";
-                    break;
-                case "paper":
-                    result = "Win";
-                    break;
-                case "scissors":
-                    result = "Tie"
-                    break;
-            }
-            break;
-    }
-    switch (result) {
-        case "Lose":
-            return `You lost. Computer's ${computerSelection} beats your ${playerSelection}.`
-        case "Tie": 
-            return `It's a tie! Both computer and you chose ${computerSelection}!`
-        case "Win":
-            return `You won! Computer chose ${computerSelection} and your ${playerSelection} beats ${computerSelection}!`
-    }
-}
-
-// Play 5 rounds of the game
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let selection;
-    for (let i=0; i<5; i++) {
-        selection = prompt(`Round ${i + 1}. Your score: ${playerScore}, computer's score: ${computerScore}.\r\nPlease type rock, paper or scissors to make a move`);
-        while (!checkMove(selection)) {
-            selection = prompt(`Move ${selection} is illegal. Please type rock, paper or scissors to make a move`)
-        }
-        result = playRound(selection, computerTurn());
-        alert(result);
-        switch (getRoundResult(result)) {
-            case -1:
-                computerScore++;
+function decreaseHealth(player) {
+    let health = document.querySelector(`.${player} .health`);
+    str = health.textContent;
+    str = setCharAt(str, health.textContent.lastIndexOf("❤"), "🖤");
+    health.textContent = str;
+    if (checkHealth(player) == false) {
+        switch (player) {
+            case 'player':
+                gameOverState=1;
                 break;
-            case 1:
-                playerScore++;
-                break;
-            default:
-                break;
+            case 'computer':
+                gameOverState=2;
         }
     }
-    let finalScore = `Final score - ${playerScore}:${computerScore}`
-    if (playerScore > computerScore) {
-        alert("You are the winner! " + finalScore); 
-    } else if (computerScore > playerScore) {
-        alert ("You lost. " + finalScore);
-    } else {
-        alert("It's a tie. " + finalScore + ". Refresh the page to play again!");
+}
+
+function gameOver(player) {
+    switch (player) {
+        case 'computer':
+            addToLog("\nCongratulations, you won the game!\nPress any button to reset the game!");
+            break;
+        case 'player':
+            addToLog("\nComputer won the game. \nPress any button to reset the game!");
+            break;
+    }
+    toggleButtons();
+    setTimeout(() => { toggleButtons(); }, 2000);
+}
+
+function postRoundResults(playerChoice, compChoice, result) {
+    addToLog(`ROUND ${roundCounter}\nYour choice: ${playerChoice.toUpperCase()} Computer's choice: ${compChoice.toUpperCase()} \nSo it's a ${result}.\n`);
+    if (gameOverState != 0) {
+        gameOverState == 1 ? gameOver('player') : gameOver('computer');
     }
 }
-game();
+
+function gameReset() {
+    roundCounter = 0;
+    gameOverState = 0;
+    battleLog.textContent = "The new battle awaits...";
+    healthBars = document.querySelectorAll(".health");
+    healthBars[0].textContent = "❤❤❤❤❤";
+    healthBars[1].textContent = "❤❤❤❤❤";
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function toggleButtons () {
+    rockButton.disabled = !rockButton.disabled;
+    paperButton.disabled = !paperButton.disabled;
+    scissorsButton.disabled = !scissorsButton.disabled;
+}

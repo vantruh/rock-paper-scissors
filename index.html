@@ -2,10 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Rock, paper, scissors!</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="head-content">
+        <h1>Rock, paper, scissors!</h1>
+        <p>Ah, the classics! <br> As always: "rock" beats scissors, the "scissors" beat paper and the "paper" beats rock; <br>
+            Try your by luck playing against the almighty computer!
+        </p>
+    </div>
+    <div class="game-info">
+        <div class="score">
+            <p id="round"></p>
+            <p id="score"></p>
+        </div>
+        <div class="log-panel">
+            <div class="player">
+                <p>YOU</p>
+                <p class="health">❤❤❤❤❤</p>
+            </div>
+            <div class="battle-log">
+                <h2>BATTLE LOG</h2>
+                <p id="log">The battle is not started yet...</p>
+            </div>
+            <div class="computer">
+                <p>COMPUTER</p>
+                <p class="health">❤❤❤❤❤</p>
+            </div>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="choice-container">
+            <p class="info">CHOOSE YOUR ATTACK</p>
+            <div class="choice">
+                <input type="button" value="✊" id="rock" class="button">
+                <label for="rock">Rock!</label>
+            </div>
+            <div class="choice">
+                <input type="button" value="✋" id="paper" class="button">
+                <label for="paper">Paper!</label>
+            </div>
+            <div class="choice">
+                <input type="button" value="✌" id="scissors" class="button">
+                <label for="scissors">Scissors!</label>
+            </div>
+            <p class="info">CHOOSE YOUR ATTACK</p>
+        </div>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>

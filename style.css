@@ -1,0 +1,104 @@
+body {
+    margin:0;
+    padding:0;
+}
+
+.head-content {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding:0 10vw;
+}
+
+.head-content p {
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+}
+
+.log-panel {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+h2 {
+    margin:0;
+    font-size:3vh;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.player, .computer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size:2vw;
+    font-weight: bolder;
+}
+
+.health {
+    font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif, LastResort;
+    font-size:2.5vw;
+    margin-top:-1vh;
+}
+
+.battle-log {
+    height:30vh;
+    border: 2px solid gray;
+    padding:1vh;
+    width:60%;
+    background-color: rgb(252, 252, 252);
+    white-space: pre-line;
+}
+
+.battle-log p {
+    text-align: left;
+    padding:0 0 0 2vw;
+    overflow:auto;
+    height:72%;
+    scrollbar-width: thin;
+}
+
+
+.button {
+    width:10vh;
+    height:10vh;
+    font-size: 6vh;
+    padding:2px;
+    text-align: center;
+}
+
+.content-container {
+    position:relative;
+}
+
+.choice-container {
+    padding-top:10vh;
+    display:flex;
+    padding:5vh;
+    justify-content: center;
+    gap: 5vw;
+    align-items: center;
+    background-color: aliceblue;
+}
+
+.choice {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.choice label {
+    margin-top:1vh;
+    font-weight:bolder;
+}
+
+.info {
+    font-size:3vw;
+    font-style:oblique;
+    color:crimson;
+    font-weight: bolder;
+    text-align: center;
+    text-shadow:black -0.2vw 0px;
+}
